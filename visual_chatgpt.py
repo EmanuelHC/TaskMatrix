@@ -1129,7 +1129,7 @@ class Inpainting:
 
         self.inpaint = StableDiffusionInpaintPipeline.from_pretrained(
             "runwayml/stable-diffusion-inpainting", revision=self.revision, torch_dtype=self.torch_dtype,safety_checker=StableDiffusionSafetyChecker.from_pretrained('CompVis/stable-diffusion-safety-checker')).to(device)
-    def __call__(self, prompt, image, mask_image, height=512, width=512, num_inference_steps=200):
+    def __call__(self, prompt, image, mask_image, height=512, width=512, num_inference_steps=100):
         update_image = self.inpaint(prompt=prompt, image=image.resize((width, height)),
                                      mask_image=mask_image.resize((width, height)), height=height, width=width, num_inference_steps=num_inference_steps).images[0]
         return update_image
